@@ -4,7 +4,7 @@ RUN apt-get -y update && apt-get -y upgrade
 
 RUN apt-get install -y vim curl git make gcc
 
-RUN mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+RUN mkdir -p /root/.vim/autoload /root/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 RUN git clone https://github.com/Shougo/vimproc.vim.git ~/.vim/bundle/vimproc.vim && \

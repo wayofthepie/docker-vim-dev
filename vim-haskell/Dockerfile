@@ -13,4 +13,7 @@ RUN cd /var/tmp && cd ghc-7.8.4 && sh configure && make install && \
 RUN cabal update && cabal install cabal-install-1.20.0.6 && \
     export LANG=C.UTF-8 && cabal install ghc-mod-5.2.1.2
 
-ADD haskell.vim ~/.vim/bundle/
+RUN git clone https://github.com/eagletmt/ghcmod-vim /root/.vim/bundle/ghcmod-vim
+
+RUN mkdir /root/.vim/plugin 
+ADD haskell.vim /root/.vim/plugin/

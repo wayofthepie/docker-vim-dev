@@ -1,0 +1,15 @@
+execute pathogen#infect()
+filetype off
+syntax on
+filetype plugin indent on
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set smarttab
+set expandtab
+set background=dark
+
+" Auto remove trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
+

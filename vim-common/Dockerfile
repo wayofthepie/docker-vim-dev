@@ -1,17 +1,16 @@
-FROM ubuntu:14.10
+from fedora:22
 
-RUN apt-get -y update && apt-get -y upgrade
+run dnf update -y && dnf install -y vim curl git make gcc
 
-RUN apt-get install -y vim curl git make gcc
+run mkdir -p /home/dev && groupadd -r dev && useradd -r -d /home/dev -g dev dev && chown dev:dev /home/dev
 
-RUN mkdir -p /root/.vim/autoload /root/.vim/bundle && \
+run mkdir -p ~/.vim/autoload ~/.vim/bundle && \
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-RUN git clone https://github.com/Shougo/vimproc.vim.git ~/.vim/bundle/vimproc.vim && \
+run git clone https://github.com/Shougo/vimproc.vim.git ~/.vim/bundle/vimproc.vim && \
     cd ~/.vim/bundle/vimproc.vim && make
 
 # Syntax highlighting for docker
-RUN git clone https://github.com/ekalinin/Dockerfile.vim.git ~/.vim/bundle/Dockerfile.vim && \
+run git clone https://github.com/ekalinin/Dockerfile.vim.git ~/.vim/bundle/Dockerfile.vim && \
     cd ~/.vim/bundle/Dockerfile.vim && make
 
-ADD vimrc /etc/vim/vimrc.local

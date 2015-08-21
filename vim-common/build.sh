@@ -1,1 +1,1 @@
-docker build --no-cache=true --tag vim-common .
+docker build  --tag vim-common .

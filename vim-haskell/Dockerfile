@@ -1,23 +1,14 @@
-FROM vim-common
+from vim-common
 
-RUN apt-get update -y && apt-get upgrade -y && \
-    apt-get install -y alex happy wget cabal-install zlib1g-dev
-
-RUN cd /var/tmp && wget https://www.haskell.org/ghc/dist/7.10.1/ghc-7.10.1-x86_64-unknown-linux-deb7.tar.bz2
-
-RUN cd /var/tmp && tar xjvf ghc-7.10.1-x86_64-unknown-linux-deb7.tar.bz2
-
-RUN cd /var/tmp && cd ghc-7.10.1 && sh configure && make install && \
-    rm -rf ghc-7.10.1 ghc-7.10.1-x86_64-unknown-linux-deb7.tar.bz2
-
-RUN cabal update && cabal install cabal-install-1.22.4.0 
-
-RUN export LANG=C.UTF-8 && git clone https://github.com/kazu-yamamoto/ghc-mod && cd ghc-mod && cabal install 
-
-RUN git clone https://github.com/eagletmt/ghcmod-vim /root/.vim/bundle/ghcmod-vim
-
-RUN mkdir /root/.vim/plugin 
-
-ENV PATH ~/.cabal/bin:$PATH
-
-ADD haskell.vim /root/.vim/plugin/
+env HOME /root
+run curl -sSL https://s3.amazonaws.com/download.fpcomplete.com/fedora/22/fpco.repo | tee /etc/yum.repos.d/fpco.repo
+run dnf -y install stack
+run mkdir -p $HOME/.stack/global/
+add stack.yaml $HOME/.stack/global/
+add haskell.vim /root/.vim/plugin/
+run git clone https://github.com/eagletmt/ghcmod-vim $HOME/.vim/bundle/ghcmod-vim
+run stack setup
+env LANG en_IE.utf8
+run git clone https://github.com/kazu-yamamoto/ghc-mod && cd ghc-mod && stack install
+env PATH /root/.local/bin:$PATH
+env PATH /root/.stack/programs/x86_64-linux/ghc-7.10.2/bin/:$PATH

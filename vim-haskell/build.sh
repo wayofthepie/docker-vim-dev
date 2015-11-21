@@ -1,1 +1,1 @@
-docker build --tag haskell-dev .
+docker build --tag haskell-devel .

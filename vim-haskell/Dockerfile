@@ -13,11 +13,6 @@ RUN git clone https://github.com/eagletmt/ghcmod-vim $HOME/.vim/bundle/ghcmod-vi
 RUN stack setup
 ENV LANG en_IE.utf8
 RUN stack path
-RUN git clone https://github.com/kazu-yamamoto/ghc-mod &&\
-    cd ghc-mod &&\
-    git checkout v5.4.0.0 &&\
-    stack install 
-RUN rm -rf ghc-mod 
 
 ENV PATH /root/.local/bin:$PATH
 ENV PATH /root/.stack/programs/x86_64-linux/ghc-7.10.2/bin/:$PATH
